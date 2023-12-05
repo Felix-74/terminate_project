@@ -1,16 +1,16 @@
 from typing import Annotated
 
-import router as router
 from fastapi import APIRouter, Path
 
-router = APIRouter(prefix="/itemps")
+router = APIRouter(prefix="/items", tags=["Items"])
+
 
 @router.get("/latest/")
 def get_latest_item():
     return {"item": {"id": "0", "name": "latest"}}
 
 
-@app.get("/")
+@router.get("/")
 def list_items():
     return [
         "Item1",
@@ -19,7 +19,7 @@ def list_items():
     ]
 
 
-@app.get("/{item_id}/")
+@router.get("/{item_id}/")
 def get_item_by_id(item_id: Annotated[int, Path(ge=1, lt=1_000_000)]):
     return {
         "item": {
